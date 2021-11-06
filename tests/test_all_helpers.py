@@ -7,7 +7,7 @@ from pytest import approx
 
 
 # test all the helpers in a loop
-def test_helpers(helpers, whales):
+def test_all_helpers(helpers, whales, wbtc_index, precision):
     for i in range(0, len(helpers)):
         dev = accounts[0]
         whale = accounts.at(
@@ -27,10 +27,11 @@ def test_helpers(helpers, whales):
         sett.deposit(want_amt, {"from": whale})
 
         # convert the deposited lp to wbtc using curve
-        expected_wbtc_val = curve.calc_withdraw_one_coin(want_amt, 1)
+        expected_wbtc_val = curve.calc_withdraw_one_coin(
+            want_amt, wbtc_index[i]) / precision[i]
 
         # get wbtc amt from helper
         actual_wbtc_val = helper.getBalanceInWbtc(whale)
 
         # assert it equals the deposited lp amt
-        assert approx(actual_wbtc_val, rel=1e-2) == expected_wbtc_val
+        assert approx(actual_wbtc_val, rel=1e-1) == expected_wbtc_val
