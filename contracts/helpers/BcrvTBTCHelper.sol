@@ -14,11 +14,11 @@ contract BcrvTBTCHelper is IHelper {
 
 
     function getBalanceInWbtc(address _account) public view returns (uint256) {
-        uint256 wantAmt = (ISettV3(SETT).balanceOf(_account) * ISettV3(SETT).getPricePerFullShare()) / 1e18;
+        uint256 wantAmt = ISettV3(SETT).balanceOf(_account) * ISettV3(SETT).getPricePerFullShare();
 
         // didn't use a for loop to save gas
-        uint256 wbtcReserve = (ICurveExchangeMeta(CURVE_POOL).balances(0) + ICurveExchangeMeta(CURVE_POOL).balances(1)) / 1e10;
+        uint256 wbtcReserve = ICurveExchangeMeta(CURVE_POOL).balances(0) + ICurveExchangeMeta(CURVE_POOL).balances(1);
 
-        return  (wbtcReserve * wantAmt )/ IERC20(lp).totalSupply();
+        return  ((wbtcReserve * wantAmt) / 1e28 )/ IERC20(lp).totalSupply();
     }
 }
