@@ -31,8 +31,8 @@ contract TestHelper is IHelper {
     function getBalanceInWbtcShort(address _account) public view returns (uint256) {
         uint256 wantAmt = (ISettV3(SETT).balanceOf(_account) * ISettV3(SETT).getPricePerFullShare()) / 1e18;
 
-        uint256 wbtcReserve = ICurveExchange(CURVE_POOL).balances(0); //renBtc Reserves
-        wbtcReserve += ICurveExchange(CURVE_POOL).balances(1); // wbtc Reserves
+        // didn't use a for loop to save gas
+        uint256 wbtcReserve = ICurveExchange(CURVE_POOL).balances(0) + ICurveExchange(CURVE_POOL).balances(1);
 
         return  (wbtcReserve * wantAmt )/ IERC20(lp).totalSupply();
     }
