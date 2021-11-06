@@ -7,12 +7,12 @@ from pytest import approx
 
 
 # test all the helpers in a loop
-def test_all_helpers(helpers, whales, wbtc_index, precision):
-    for i in range(0, len(helpers)):
+def test_crv_helpers(crv_helpers, crv_whales, wbtc_index, precision):
+    for i in range(0, len(crv_helpers)):
         dev = accounts[0]
         whale = accounts.at(
-            whales[i], force=True)
-        helper = helpers[i].deploy({"from": dev})
+            crv_whales[i], force=True)
+        helper = crv_helpers[i].deploy({"from": dev})
 
         sett = interface.ISettV3(helper.SETT())
         curve = interface.ICurveExchange(helper.CURVE_POOL())

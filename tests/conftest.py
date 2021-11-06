@@ -6,14 +6,13 @@ from brownie import (
     BcrvPBTCHelper,
     BcrvOBTCHelper,
     BcrvBBTCHelper,
-    BcrvTricrypto2Helper
 )
 from brownie import *
 import pytest
 
 
 @pytest.fixture
-def helpers():
+def crv_helpers():
     return [BcrvRenBTCHelper,
             BcrvSBTCHelper,
             BcrvTBTCHelper,
@@ -21,12 +20,11 @@ def helpers():
             BcrvPBTCHelper,
             BcrvOBTCHelper,
             BcrvBBTCHelper,
-            BcrvTricrypto2Helper
             ]
 
 
 @pytest.fixture
-def whales():
+def crv_whales():
     return ["0xc77c6375e9fd581701425a6fb70bf371fb1cba28",
             "0x1f08863f246fe456f94579d1a2009108b574f509",
             "0x3d24d77bec08549d7ea86c4e9937204c11e153f1",
@@ -34,16 +32,15 @@ def whales():
             "0x3750a58f96cc192ce18117c15db7acaef36a0d7b",
             "0xe5447efebb597267d6afe9c53e0aeaba7e617fa8",
             "0x1423b6609bd8194ed2a6cfae0c52ad41e68f0821",
-            "0xee1f07f88934c2811e3dcabdf438d975c3d62cd3"
             ]
 
 
 @pytest.fixture
 def wbtc_index():
-    return [1, 1, 0, 1, 1, 0, 0, 1]
+    return [1, 1, 0, 1, 1, 0, 0]
 
 
 # needed for pools where the final amount out is not in 8 decimals
 @pytest.fixture
 def precision():
-    return [1, 1, 1e10, 1, 1e10, 1e10, 1, 1]
+    return [1, 1, 1e10, 1, 1e10, 1e10, 1]
