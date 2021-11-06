@@ -16,7 +16,7 @@ contract BcrvOBTCHelper is IHelper {
         uint256 wantAmt = ISettV3(SETT).balanceOf(_account) * ISettV3(SETT).getPricePerFullShare();
 
         // didn't use a for loop to save gas
-        uint256 wbtcReserve = ICurveExchangeMeta(CURVE_POOL).balances(0) + ICurveExchangeMeta(CURVE_POOL).balances(1); // dividing by 1e10 bcoz hbtc has 18 decimals
+        uint256 wbtcReserve = ICurveExchangeMeta(CURVE_POOL).balances(0) + ICurveExchangeMeta(CURVE_POOL).balances(1);
 
         return  ((wbtcReserve * wantAmt) / 1e28)/ IERC20(lp).totalSupply();
     }

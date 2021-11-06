@@ -4,7 +4,8 @@ from brownie import (
     BcrvTBTCHelper,
     BcrvHBTCHelper,
     BcrvPBTCHelper,
-    BcrvOBTCHelper
+    BcrvOBTCHelper,
+    BcrvBBTCHelper
 )
 from brownie import *
 import pytest
@@ -17,7 +18,8 @@ def helpers():
             BcrvTBTCHelper,
             BcrvHBTCHelper,
             BcrvPBTCHelper,
-            BcrvOBTCHelper
+            BcrvOBTCHelper,
+            BcrvBBTCHelper
             ]
 
 
@@ -28,16 +30,17 @@ def whales():
             "0x3d24d77bec08549d7ea86c4e9937204c11e153f1",
             "0x7a7a599d2384ed203cfea49721628aa851e0da16",
             "0x3750a58f96cc192ce18117c15db7acaef36a0d7b",
-            "0xe5447efebb597267d6afe9c53e0aeaba7e617fa8"
+            "0xe5447efebb597267d6afe9c53e0aeaba7e617fa8",
+            "0x1423b6609bd8194ed2a6cfae0c52ad41e68f0821"
             ]
 
 
 @pytest.fixture
 def wbtc_index():
-    return [1, 1, 0, 1, 1, 0]
+    return [1, 1, 0, 1, 1, 0, 0]
 
 
 # needed for pools where the final amount out is not in 8 decimals
 @pytest.fixture
 def precision():
-    return [1, 1, 1e10, 1, 1e10, 1e10]
+    return [1, 1, 1e10, 1, 1e10, 1e10, 1]
