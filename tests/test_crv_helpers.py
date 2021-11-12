@@ -26,7 +26,8 @@ def test_crv_helpers(crv_helpers, crv_whales, wbtc_index, precision):
         lp.approve(sett, want_amt, {"from": whale})
         sett.deposit(want_amt, {"from": whale})
 
-        # convert the deposited lp to wbtc using curve
+        # calculated the expected wbtc for our deposited lp using curve's cal_withdraw_one_coin function
+        # so that we can test that the balance from our helper is approximately equal to this
         expected_wbtc_val = curve.calc_withdraw_one_coin(
             want_amt, wbtc_index[i]) / precision[i]
 

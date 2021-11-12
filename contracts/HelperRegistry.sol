@@ -47,7 +47,7 @@ contract HelperRegistry is BoringOwnable {
         return _helpers;
     }
 
-    /// @notice get the total non-native balance of a user in wbtc denomination
+    /// @notice get the total non-native balance of an account in wbtc denomination
     /// @param _account address of the account for which to get the balance
     function getNonNativeBalance(address _account) public view returns (uint total) {
         for (uint i=0; i<_helpers.length; i++) {
