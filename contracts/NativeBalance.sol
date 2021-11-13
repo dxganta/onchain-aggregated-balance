@@ -47,9 +47,10 @@ contract NativeBalance is BoringOwnable {
         secondsAgos[1] = 0;
         (int56[] memory tickCumulatives, ) = IUniswapV3Pool(BADGER_WBTC_V3_POOL).observe(secondsAgos);
 
-        int24 twapVal = int24((tickCumulatives[1] - tickCumulatives[0]) / int32(secondsAgo));
-        uint160 sqrtPriceX96 = TickMath.getSqrtRatioAtTick(twapVal); // returns sqrt(1.0001^tick) * 2^96
-        badgerBal = (sqrtPriceX96 / 2**96) ** 2;
+        int24 tick = int24((tickCumulatives[1] - tickCumulatives[0]) / int32(secondsAgo));
+        // TickMath.getSqrtRatioAtTick(tick) returns sqrt(1.0001^tick) * 2^96
+        uint tickToPrice = (TickMath.getSqrtRatioAtTick(tick) / 2**96) **2; 
+        badgerBal = 10**18 / tickToPrice; // badgerBal in wbtc denomination
 
         // get digg balance in wbtc denomination from sushi pool
         (uint wbtcDiggReserve, uint diggReserve, ) = IUniswapV2Pair(DIGG_WBTC_SUSHI_POOL).getReserves();
