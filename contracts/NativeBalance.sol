@@ -44,7 +44,6 @@ contract NativeBalance is BoringOwnable {
         // get badger balance in wbtc denomination from uniswap v3 pool
         uint32[] memory secondsAgos = new uint32[](2);
         secondsAgos[0] = secondsAgo;
-        secondsAgos[1] = 0;
         (int56[] memory tickCumulatives, ) = IUniswapV3Pool(BADGER_WBTC_V3_POOL).observe(secondsAgos);
 
         int24 tick = int24((tickCumulatives[1] - tickCumulatives[0]) / int32(secondsAgo));
